@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orden de Pago </title>
+  <link rel="stylesheet" type="text/css" href="css/stylo.css">
+  <link rel="stylesheet" href="bt/bootstrap.min.css">
+  <script src="bt/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bt-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="alertify/alertify.min.css">
+  <link rel="stylesheet" href="alertify/themes/default.min.css">
+  <script src="alertify/alertify.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    select, input { margin: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    table, th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    .hidden { display: none; }
+    .orden { border: 2px solid #000; padding: 10px; margin-top: 20px; }
+    button { margin-top: 10px; }
+     .enlace-fosfo {
+    text-decoration: none;
+    color: white !important;
+    transition: color 0.3s ease;
+    }
+
+    .enlace-fosfo:hover {
+      color: #00ff88 !important;
+    }
+    @media print {
+    body * {
+      visibility: hidden;
+    }
+    #impresionOrden, #impresionOrden * {
+      visibility: visible;
+    }
+    #impresionOrden {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+   
+  }
+  </style>
+
+</head>
+<body>
+  <nav style="width:100%;background:#343a40;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;flex-wrap:wrap;">
+    <div>
+      <a href="menu.html" style="color:#fff;text-decoration:none;font-weight:bold;">
+        &#8592; Volver al menú
+      </a>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;">
+     
+      <div class="sb-sidenav-footer" style="color:#adb5bd;font-size:0.9em;text-align:right;">
+        <div class="small"><a href="ordenes_guardadas.html" class="text-white enlace-fosfo small">
+           Buscar órdenes pagadas
+        </a></div>
+        <div id="usuario"></div>
+      </div>
+    </div>
+  </nav>
+  <div class="col-md-12" align="center">
+    <div class="p-0.9 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 ">
+        <h2 class="text-primary">GENERAR ORDEN DE PAGO</h2>
+    </div>
+  </div>
+  
+  <br>
+
+  <div class="p-1 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" align="center">
+      <label for="proveedor">Seleccionar proveedor:</label> 
+      <select id="proveedor" id="ms"class="form-select form-select-sm bodoni mt">
+      </select>
+  </div>    
+  
+  <br>
+  
+  <div class="p-1 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" align="center">
+    <label for="ruc">RUC del proveedor:</label> 
+    <input type="text" id="ruc" placeholder="Ingrese RUC">
+  </div>  
+
+  <p id="mensajeRuc" style="color: red; font-weight: bold;"></p>
+  <div id="facturasDiv" class="hidden">
+    <h3>Facturas del proveedor:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sel.</th>
+          <th>Factura</th>
+          <th>Fecha</th>
+          <th class="text-end">Total</th>
+        </tr>
+      </thead>
+      <tbody id="facturasTabla"></tbody>
+    </table>
+  </div>
+
+  <div id="detalleCompra" class="hidden">
+    <h3>Detalles acumulados de las compras seleccionadas:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Artículo</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="detalleTabla"></tbody>
+    </table>
+    <p><strong>Total acumulado:</strong> <span id="totalCompra"></span> Gs.</p>
+
+    <label for="metodoPago">Método de pago:</label>
+    <select id="metodoPago">
+      <option value="Efectivo">Efectivo</option>
+      <option value="Cheque">Cheque</option>
+      <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+    </select>
+
+    <label for="banco">Banco:</label>
+    <select id="banco"></select>
+
+    <button onclick="generarOrden()">Generar Orden</button>
+  </div>
+
+  <div id="ordenGenerada" class="orden hidden">
+    <h3>Orden de Pago Generada</h3>
+    <div id="ordenContenido"></div>
+    <button class="btn btn-primary" onclick="imprimirOrden()">Imprimir Orden</button>
+    <button class="btn btn-primary" onclick="guardarOrden()">Guardar Orden</button>
+  </div>
+   
+  <div id="impresionOrden" class="hidden" style="padding: 20px;">
+    <div class="invoice-box p-3 rounded">
+        <img src="img/yasy.jpeg" alt="Logo" style="width:100px;" class="rounded-pill mx-auto d-block mb-2">
+        <h2 class="text-center">"Casa Yasy S.A."</h2>
+        <p class="text-center">RUC: 80020495-6 | Tel: 0331 - 240003</p>
+        <p class="text-center">Dir: MAYOR LORENZO MEDINA 228</p>
+        <hr>
+  
+        <p><strong>Proveedor:</strong> <span id="impProveedor"></span></p>
+        <p><strong>RUC:</strong> <span id="impRuc"></span></p>
+        <p><strong>Método de Pago:</strong> <span id="impMetodo"></span></p>
+        <p><strong>Banco:</strong> <span id="impBanco"></span></p>
+  
+        <h4>Facturas Incluidas</h4>
+        <ul id="impFacturas"></ul>
+  
+        <p><strong>Total:</strong> <span id="impTotal"></span> Gs.</p>
+  
+        <p class="text-center mt-3">Ticket de Uso Interno<br>No Válido Como Comprobante Fiscal</p>
+    </div>
+  </div>
+  
+  <script>
+
+
+    if(!sessionStorage.getItem("sesionActiva")){
+      localStorage.removeItem("nomUsuario");
+      localStorage.removeItem("rolUsuario");
+      window.location.href = "Pagerror.html";
+    }
+         // obtiene el array de objetos desde el localstorage
+         var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        document.getElementById('usuario').textContent = localStorage.getItem("nomUsuario") || "Usuario";
+    
+    const proveedores = JSON.parse(localStorage.getItem("proveedores") || "[]");
+    const compras = JSON.parse(localStorage.getItem("compras") || "[]");
+    const comprasDetalle = JSON.parse(localStorage.getItem("comprasdetalle") || "[]");
+    const articulos = JSON.parse(localStorage.getItem("articulos") || "[]");
+    const bancos = JSON.parse(localStorage.getItem("bancos") || "[]");
+
+    const proveedorSelect = document.getElementById("proveedor");
+    const facturasDiv = document.getElementById("facturasDiv");
+    const facturasTabla = document.getElementById("facturasTabla");
+    const detalleCompra = document.getElementById("detalleCompra");
+    const detalleTabla = document.getElementById("detalleTabla");
+    const totalCompra = document.getElementById("totalCompra");
+    const bancoSelect = document.getElementById("banco");
+    const ordenGenerada = document.getElementById("ordenGenerada");
+    const ordenContenido = document.getElementById("ordenContenido");
+
+    let comprasSeleccionadas = [];
+    let ordenGeneradaDatos = {
+      proveedor: "",
+      ruc: "",
+      metodo: "",
+      banco: "",
+      facturas: [],
+      total: 0
+    };
+    function cargarProveedores() {
+      proveedorSelect.innerHTML = "<option value=''>-- Seleccione --</option>";
+      proveedores.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p.idproveedor;
+        opt.textContent = p.nombre;
+        proveedorSelect.appendChild(opt);
+      });
+      
+    }
+
+    function cargarFacturas() {
+      const comprasActualizadas = JSON.parse(localStorage.getItem("compras") || "[]");
+      const idprov = parseInt(proveedorSelect.value);
+      comprasSeleccionadas = [];
+      detalleTabla.innerHTML = "";
+      totalCompra.textContent = "0";
+
+      // Solo mostrar compras NO anuladas y NO pagadas
+      const facturas = comprasActualizadas.filter(
+        c => c.idproveedor === idprov && c.anulado === "NO" && c.pagado === "NO"
+      );
+
+      facturasTabla.innerHTML = "";
+      facturas.forEach(c => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><input type="checkbox" value="${c.idcompra}" onchange="toggleFactura(this)" /></td>
+          <td>${c.numfactura}</td>
+          <td>${c.FechaCompra ?? c.fecha ?? ""}</td>
+          <td class="text-end">${(c.totcompra ?? c.total ?? 0).toLocaleString()}</td>
+        `;
+        facturasTabla.appendChild(tr);
+      });
+
+      facturasDiv.classList.remove("hidden");
+    }
+
+    function toggleFactura(checkbox) {
+      const idcompra = parseInt(checkbox.value);
+
+      if (checkbox.checked) {
+        comprasSeleccionadas.push(idcompra);
+      } else {
+        comprasSeleccionadas = comprasSeleccionadas.filter(id => id !== idcompra);
+      }
+
+      mostrarDetallesSeleccionados();
+    }
+
+    function mostrarDetallesSeleccionados() {
+      detalleTabla.innerHTML = "";
+      let total = 0;
+
+      comprasSeleccionadas.forEach(id => {
+        const detalles = comprasDetalle.filter(d => d.idcompra === id);
+        detalles.forEach(d => {
+          const art = articulos.find(a => a.idarticulo === d.idarticulo);
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${art ? art.descripcion : 'N/D'}</td>
+            <td class="text-end">${d.cantidad}</td>
+            <td class="text-end">${d.preuni.toLocaleString()}</td>
+            <td class="text-end">${d.subtotal.toLocaleString()}</td>
+          `;
+          detalleTabla.appendChild(tr);
+          total += d.subtotal;
+        });
+      });
+
+      totalCompra.textContent = total.toLocaleString();
+      detalleCompra.classList.toggle("hidden", comprasSeleccionadas.length === 0);
+    }
+
+    function cargarBancos() {
+      bancoSelect.innerHTML = "<option value=''>-- Seleccione --</option>";
+      bancos.forEach(b => {
+        const opt = document.createElement("option");
+        opt.value = b.nombre;
+        opt.textContent = b.nombre;
+        bancoSelect.appendChild(opt);
+      });
+            // Sincronización entre proveedor y RUC
+        const rucInput = document.getElementById("ruc");
+
+        rucInput.addEventListener("input", function () {
+        const ruc = this.value.trim();
+        const proveedor = proveedores.find(p => p.ruc === ruc);
+        if (proveedor) {
+            proveedorSelect.value = proveedor.idproveedor;
+            cargarFacturas();
+            mensajeRuc.textContent = ""; // Ocultar mensaje de error si ya había uno
+        } else {
+            proveedorSelect.value = ""; // Limpiar el nombre del proveedor
+            facturasDiv.classList.add("hidden");
+            detalleCompra.classList.add("hidden");
+            mensajeRuc.textContent = " RUC no encontrado. Verifique el número ingresado.";
+           // Limpiar orden generada aquí también
+            ordenGenerada.classList.add("hidden");
+            ordenContenido.innerHTML = "";
+        }
+        });
+
+        proveedorSelect.addEventListener("change", function () {
+        const idprov = parseInt(this.value);
+        const proveedor = proveedores.find(p => p.idproveedor === idprov);
+        
+        if (proveedor) {
+            rucInput.value = proveedor.ruc || "";
+            mensajeRuc.textContent = "";
+            cargarFacturas();
+        } else {
+            rucInput.value = "";
+            facturasDiv.classList.add("hidden");
+            detalleCompra.classList.add("hidden");
+            mensajeRuc.textContent = "";
+        }
+        });
+       // Limpiar orden generada si hubo una antes
+        ordenGenerada.classList.add("hidden");
+        ordenContenido.innerHTML = "";
+    }
+
+    function generarOrden() {
+      console.log("comprasSeleccionadas:", comprasSeleccionadas);
+      console.log("proveedorSelect.value:", proveedorSelect.value);
+      console.log("proveedores:", proveedores);
+      if (comprasSeleccionadas.length === 0) {
+        alert("Debe seleccionar al menos una factura para generar la orden.");
+        return;
+      }
+
+      const comprasActualizadas = JSON.parse(localStorage.getItem("compras") || "[]");
+      const proveedor = proveedores.find(p => p.idproveedor === parseInt(proveedorSelect.value));
+      if (!proveedor) {
+        alert("Seleccione un proveedor válido.");
+        return;
+      }
+
+      const metodo = document.getElementById("metodoPago").value;
+      const banco = bancoSelect.value || "N/A";
+
+      // Copiar facturas antes de modificarlas
+        const facturasSeleccionadas = comprasActualizadas
+          .filter(c => comprasSeleccionadas.includes(c.idcompra));
+
+        const total = facturasSeleccionadas.reduce((sum, f) => sum + f.totcompra, 0);
+
+        // Ahora sí, marcar como pagadas
+        comprasActualizadas.forEach(c => {
+          if (comprasSeleccionadas.includes(c.idcompra)) {
+            c.pagado = "SI";
+          }
+        });
+
+        localStorage.setItem("compras", JSON.stringify(comprasActualizadas));
+     
+
+      ordenContenido.innerHTML = `
+      <p><strong>Proveedor:</strong> ${proveedor.nombre}</p>
+      <p><strong>Facturas incluidas:</strong></p>
+      <ul>
+        ${facturasSeleccionadas.map(f => {
+            const fecha = f.FechaCompra || f.fecha || 'Fecha no disponible';
+            return `<li>${f.numfactura} (${fecha}) - ${f.totcompra.toLocaleString()} Gs.</li>`;
+          }).join("")}
+      </ul>
+      <p><strong>Total General:</strong> ${total.toLocaleString()} Gs.</p>
+      <p><strong>Método de Pago:</strong> ${metodo}</p>
+      <p><strong>Banco:</strong> ${banco}</p>
+    `;
+    ordenGeneradaDatos = {
+      proveedor: proveedor.nombre,
+      ruc: proveedor.ruc,
+      metodo,
+      banco,
+      facturas: facturasSeleccionadas,
+      total
+    };
+      ordenGenerada.classList.remove("hidden");
+
+      cargarFacturas();
+      comprasSeleccionadas = [];
+      mostrarDetallesSeleccionados();
+    }
+    function guardarOrden() {
+      const ordenesGuardadas = JSON.parse(localStorage.getItem("ordenesPago") || "[]");
+
+      const facturasSeleccionadasCopia = [...comprasSeleccionadas];
+
+      const nuevaOrden = {
+        proveedor: proveedorSelect.options[proveedorSelect.selectedIndex].text,
+        ruc: document.getElementById("ruc").value,
+        metodo: document.getElementById("metodoPago").value,
+        banco: bancoSelect.value || "N/A",
+        fecha: new Date().toLocaleString(),
+        facturas: facturasSeleccionadasCopia,
+        html: ordenContenido.innerHTML
+      };
+
+      ordenesGuardadas.push(nuevaOrden);
+      localStorage.setItem("ordenesPago", JSON.stringify(ordenesGuardadas));
+      alert(" Orden guardada correctamente.");
+      location.reload();
+    }
+       
+    proveedorSelect.addEventListener("change", cargarFacturas);
+    cargarProveedores();
+    cargarBancos();
+    function imprimirOrden() {
+      const datos = ordenGeneradaDatos;
+
+      document.getElementById("impProveedor").textContent = datos.proveedor;
+      document.getElementById("impRuc").textContent = datos.ruc;
+      document.getElementById("impMetodo").textContent = datos.metodo;
+      document.getElementById("impBanco").textContent = datos.banco;
+
+      const ul = document.getElementById("impFacturas");
+      ul.innerHTML = "";
+
+      datos.facturas.forEach(f => {
+        const li = document.createElement("li");
+        const fecha = f.FechaCompra || f.fecha || '---';
+        const total = f.totcompra?.toLocaleString() || "0";
+        li.textContent = `${f.numfactura} (${fecha}) - ${total} Gs.`;
+        ul.appendChild(li);
+      });
+
+      document.getElementById("impTotal").textContent = datos.total.toLocaleString();
+
+      // Mostrar e imprimir
+      document.getElementById("impresionOrden").classList.remove("hidden");
+      window.print();
+      document.getElementById("impresionOrden").classList.add("hidden");
+    }
+
+  </script>
+</body>
+</html>

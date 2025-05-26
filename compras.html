@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Compras</title>
+  <link rel="icon" href="img/yasy.jpeg">
+
+  <!-- BOOTSTRAP ICONS -->
+  <link rel="stylesheet" href="bt-icons/bootstrap-icons.min.css">
+
+  <!-- DATATABLES -->
+  <link rel="stylesheet" href="dt/datatables.min.css">
+  <link rel="stylesheet" href="dt/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="dt/buttons.dataTables.min.css">
+
+  <!-- ALERTIFYJS -->
+  <link rel="stylesheet" href="alert/alertify.min.css">
+  <link rel="stylesheet" href="alert/themes/default.min.css">
+  <script src="alert/alertify.min.js"></script>
+
+  <!-- ESTILOS DEL MENU -->
+  <link href="menu/styles.css" rel="stylesheet" />
+</head>
+
+<body class="sb-nav-fixed">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="menu.html">Casa Yasy</a>
+
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi bi-list"></i></button>
+        
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+
+        <!-- Navbar del Usuario-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#!">Config.</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+
+        <!-- Barra Lateral Izquierda, Menú Vertical -->
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Menu</div>
+                    <a class="nav-link" href="menu.html">
+                        <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                        Menu
+                    </a>
+                    <div class="sb-sidenav-menu-heading"></div>
+                    <!-------------------------------------------------------------->
+
+                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="bi bi-columns-gap"></i></div>
+                        Mantenimiento
+                        <div class="sb-sidenav-collapse-arrow"><i class="i bi-chevron-down"></i></div>
+                    </a> -->
+                    <!-------------------------------------------------------------->
+                    
+                    <!-- <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link d-none" href="usuarios.html" id="Usuarios">Usuarios</a>
+                            <a class="nav-link d-none" href="bancos.html" id="Bancos">Bancos</a>
+                            <a class="nav-link d-none" href="clientes.html" id="Clientes">Clientes</a>
+                            <a class="nav-link d-none" href="proveedores.html" id="Proveedores">Proveedores</a>
+                            <a class="nav-link d-none" href="#" id="Articulos">Articulos</a>
+                            <a class="nav-link d-none" href="#" id="Marcas">Marcas</a>
+                            <a class="nav-link d-none" href="#" id="Familias">Familias</a>
+                        </nav>
+                    </div> -->
+                    <!-------------------------------------------------------------->
+
+                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="bi bi-book"></i></div>
+                            Movimiento
+                        <div class="sb-sidenav-collapse-arrow"><i class="i bi-chevron-down"></i></div>
+                    </a> -->
+                    
+                    <!-- <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                            Facturación
+                            <div class="sb-sidenav-collapse-arrow"><i class="i bi-chevron-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link d-none" href="compras.html" id="Compras">Compras</a>
+                            <a class="nav-link d-none" href="ventas.html" id="Ventas">Ventas</a>
+                            <a class="nav-link d-none" href="pagoProveedores.html" id="Pproveedores">Pagos a proveedores</a>
+                        </nav>
+                        </div>
+                    </nav> -->
+
+                   </div>
+                    <div class="sb-sidenav-menu-heading"></div>
+                    <a class="nav-link" href="">
+                        <div class="sb-nav-link-icon"><i class="bi bi-bar-chart"></i></div>
+                        
+                    </a>
+                    <a class="nav-link" href="">
+                        <div class="sb-nav-link-icon"><i class="bi bi-table"></i></div>
+                        
+                    </a>
+                    </div> 
+                <!-- </div> -->
+              
+                <div class="sb-sidenav-footer">
+                    <div class="small">Iniciado por:</div>
+                    <div id="usuario"></div>
+                </div>
+            </nav>
+            
+        </div>
+
+        <!-- CONTAINER DEL CONTENIDO -->
+        <div id="layoutSidenav_content">
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-2">Compras</h1>
+
+                    <!-- AQUÍ VA TODO LO QUE SE VA A VISUALIZAR EN LA PÁGINA -->
+                    <form action="#" id="formCompras" class="modal-content">
+
+                        <!-- CABECERA -->
+                        <div class="row mx-1">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label fw-bold">N° FACTURA</label>
+                                            <input type="text" id="numfactura" class="form-control" maxlength="15"
+                                            pattern="^\d{3}-\d{3}-\d{7}$"
+                                            title="Formato: 000-000-0000000">
+                                            <!-- <input type="text" id="numfactura" class="form-control" maxlength="15"> -->
+                                        </div>
+                                        
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">FECHA</label>
+                                            <input type="date" id="fecha" class="form-control" required>
+                                        </div>
+        
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">CONDICIÓN</label>
+                                            <select id="condicion" class="form-select">
+                                                <option value="CONTADO">CONTADO</option>
+                                                <option value="CRÉDITO">CRÉDITO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">R.U.C.</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" 
+                                                    inputmode="numeric"
+                                                    pattern="^\d+(?:-\d)?$"
+                                                    class="form-control" 
+                                                    id="ruc" 
+                                                    maxlength="13"
+                                                    required>
+                                                <button class="btn btn-outline-secondary" type="button" id="btnBuscarRUCCI"><i class="bi bi-search"></i></button>
+                                            </div>
+                                            <input type="hidden" id="idproveedor">
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold">PROVEEDOR</label>
+                                            <input type="text" id="proveedor" class="form-control text-uppercase" readonly>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- CARGA DE PRODUCTO -->
+                        <div class="row mx-1 mt-2">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">COD. BARRA</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="codbarra" required max="9999999999999" min="1">
+                                                <button class="btn btn-outline-secondary" type="button" id="btnBuscarArticulo" ><i class="bi bi-search"></i></button>
+                                            </div>
+                                            <input type="hidden" id="idarticulo">
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold">DESCRIPCIÓN</label>
+                                            <input type="text" id="descripcion" class="form-control text-uppercase" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">CANTIDAD</label>
+                                            <input type="number" id="cantidad" class="form-control" required min="1" max="9999" value="1">
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold text-end ">PRECIO UNITARIO</label>
+                                            <input type="number" id="preuni" class="form-control text-end" min="1">
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <label class="form-label fw-bold">SUBTOTAL</label>
+                                            <input type="text" id="subtotal" class="form-control text-end" readonly>
+                                        </div>
+
+                                        <div class="col-12 col-lg-3">
+                                            <label class="form-label fw-bold">TIPO DE IVA</label>
+                                            <select id="tipoIva" class="form-select" disabled>
+                                                <option value="0">EXENTA</option>
+                                                <option value="5">IVA 5%</option>
+                                                <option value="10">IVA 10%</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-lg-1 d-grid align-items-end">
+                                            <button type="button" id="btnAgregarArticulo" class="btn btn-success" title="Agregar artículo"><i class="bi bi-plus-circle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- DETALLE DE COMPRA -->
+                        <div class="row mx-1 mt-2">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <table id="tablaArticulos" class="display" style="width:100%">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PIE DE COMPRA -->
+                        <div class="row mx-1 mt-2">
+
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <!-- Total de subtotales -->
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold ">Total Exenta</label>
+                                            <input type="text" id="totExenta" class="form-control text-uppercase text-end" readonly>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold">Total 5%</label>
+                                            <input type="text" id="tot5" class="form-control text-uppercase text-end " readonly>
+                                        </div>
+                                        
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold">Total 10%</label>
+                                            <input type="text" id="tot10" class="form-control text-uppercase text-end " readonly>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold">Total a Pagar</label>
+                                            <input type="text" id="totalApagar" class="form-control text-uppercase text-end" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold">Liq. 5%</label>
+                                            <input type="text" id="liq5" class="form-control text-uppercase text-end " readonly>
+                                        </div>
+                                        
+                                        <div class="col-2">
+                                            <label class="form-label fw-bold">Liq. 10%</label>
+                                            <input type="text" id="liq10" class="form-control text-uppercase text-end" readonly>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="form-label fw-bold">Total IVA</label>
+                                            <input type="text" id="total" class="form-control text-uppercase text-end" readonly>
+                                        </div>
+
+                                        <div class="col-2 d-grid align-items-end">
+                                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                                        </div>
+                                        
+                                        <div class="col-2 d-grid align-items-end">
+                                            <button type="button" class="btn btn-primary" onclick="guardarCompra()">Guardar</button>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    <br>
+                    <div class="col-2 d-grid align-items-end">
+                        <button type="button" id="btnVerTablas" class="btn btn-outline-primary btn-lg shadow-sm" title="Ver tablas de compras y detalles">
+                            <i class="bi bi-table fs-3"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal de búsqueda de proveedor -->
+                <div class="modal fade modal-fullscreen" id="modalProveedores" tabindex="-1" aria-labelledby="modalProveedoresLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalProveedoresLabel">Buscar Proveedor</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table id="tabla_proveedores" class="display compact" style="width:100%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de búsqueda de producto -->
+                <div class="modal fade" id="modalArticulos" tabindex="-1" aria-labelledby="modalArticulosLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalArticulosLabel">Buscar Artículo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table id="tabla_articulos" class="display compact" style="width:100%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para visualizar compras y detalles -->
+                    <div class="modal fade" id="modalVerTablas" tabindex="-1" aria-labelledby="modalVerTablasLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalVerTablasLabel">Compras y Detalles</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>Tabla de Compras</h5>
+                                <table id="tablaCompras" class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                    <th>ID Compra</th>
+                                    <th>Proveedor</th>
+                                    <th>RUC</th>
+                                    <th>Fecha</th>
+                                    <th>Condición</th>
+                                    <th>N° Factura</th>
+                                    <th>Total IVA</th>
+                                    <th>Total a Pagar</th>
+                                    <th>Pagado</th>
+                                    <th>Ver Detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cabecera_compras">
+
+                                </tbody>
+                                </table>
+                                <h5 class="mt-4">Detalle de la Compra Seleccionada</h5>
+                                <table id="tablaDetalleCompra" class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                    <th>ID Artículo</th>
+                                    <th>Código Barra</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Subtotal</th>
+                                    <th>Exenta</th>
+                                    <th>IVA 5%</th>
+                                    <th>IVA 10%</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detalle_compras">
+
+                                </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- PIE DE PAGINA -->
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2025</div>
+                    <div>
+                    <a href="#">Política de Privacidad</a>
+                    &middot;
+                    <a href="#">Terminos &amp; Condiciones</a>
+                    </div>
+                </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    
+  
+
+    <!-- Importar el archivo JavaScript -->
+    <script src="js/menu.js"></script>
+    <script src="js/bdP.js"></script>
+    <script src="js/sistemFunctions.js"></script>
+    <script src="menu/bootstrap.bundle.min.js"></script>
+    <script src="menu/scripts.js"></script>
+
+    <!-- DATATABLES -->
+    <script src="dt/jquery-3.7.1.js"></script>
+    <script src="dt/datatables.min.js"></script>
+    <script src="dt/jquery.dataTables.min.js"></script>
+
+    <!-- DATATABLES Buttons extension -->
+    <script src="dt/dataTables.buttons.min.js"></script>
+    <script src="dt/buttons.print.min.js"></script>
+    <script src="dt/buttons.html5.min.js"></script>
+
+    <!-- DATATABLES JSZip y pdfmake para exportar -->
+    <script src="dt/jszip.min.js"></script>
+    <script src="dt/pdfmake.min.js"></script>
+    <script src="dt/vfs_fonts.js"></script>
+    
+    <!-- DATATABLES Idioma Español -->
+    <script src="dt/es-ES.js"></script>
+
+    <script>
+        // Verificar si existe sesión activa
+        if (!sessionStorage.getItem("sesionActiva")) {
+            localStorage.removeItem("nomUsuario");
+            localStorage.removeItem("rolUsuario");
+            window.location.href = "Pagerror.html";
+        }
+
+        // Variables globales
+        document.getElementById('usuario').textContent = localStorage.getItem("nomUsuario") || "Usuario";
+        let proveedores = JSON.parse(localStorage.getItem("proveedores")) || [];
+        let articulos = JSON.parse(localStorage.getItem("articulos")) || [];
+        let marcas = JSON.parse(localStorage.getItem("marcas")) || [];
+        let clasificaciones = JSON.parse(localStorage.getItem("clasificaciones")) || [];
+        // Crear diccionarios para acceso rápido por ID
+        let dicMarcas = {};
+        marcas.forEach(m => dicMarcas[m.idmarca] = m.marca);
+        let dicClasificaciones = {};
+        clasificaciones.forEach(c => dicClasificaciones[c.idclasificacion] = c.clasificacion);
+        let articulosConNombres = [];
+        let compras = JSON.parse(localStorage.getItem("compras")) || [];
+        let detalleCompra = [];
+        let tablaDetalle;
+        let tabla;
+
+        // Totales
+        let totalExenta = 0;
+        let total5 = 0;
+        let total10 = 0;
+        let liq5 = 0;
+        let liq10 = 0;
+        let totalGeneral = 0;
+        let totalAPagar = 0;
+        let SUBTOTAL=0;
+
+        /**
+         * Inicialización cuando el DOM está completamente cargado
+         */
+        document.addEventListener('DOMContentLoaded', function () {
+            // Establecer fecha actual
+            const fechaActual = new Date().toISOString().split('T')[0];
+            // Establecer el valor máximo para la fecha, no permite fecha futura
+            document.getElementById("fecha").max = fechaActual;
+            // Establecer la fecha actual como valor por defecto
+            document.getElementById('fecha').value = fechaActual;
+            
+            // Inicializar DataTable
+            inicializarTablaArticulos();
+            
+            // Configurar eventos
+            configurarEventos();
+
+            document.getElementById("numfactura").focus();
+        });
+
+
+        /**
+         * Inicializa la tabla de artículos
+         */
+        function inicializarTablaArticulos() {
+            articulosConNombres = articulos.map(a => {
+                return {
+                    ...a,
+                    marca: dicMarcas[a.idmarca] || "Desconocido",
+                    clasificacion: dicClasificaciones[a.idclasificacion] || "Desconocido"
+                };
+            });
+
+            if ($.fn.DataTable.isDataTable('#tabla_articulos')) {3
+                $('#tabla_articulos').DataTable().destroy();
+            }
+
+            tablaDetalle = new DataTable("#tablaArticulos", {
+                data: detalleCompra,
+                scrollY: '200px',
+                scrollCollapse: true,
+                info: false,
+                ordering: false,
+                language: spanish,
+                searching: false,
+                paging: false,
+                columns: [
+                    { data: 'idarticulo', title: 'Id Articulo', targets: 0, visible: false },
+                    { data: 'cantidad', title: 'Cant.', targets: 0, width: '5%' },
+                    { data: 'codbarra', title: 'Cod. Barra', targets: 0, width: '12%' },
+                    { data: 'descripcion', title: 'Descripción', targets: 0, width: '35%' },
+                    { data: 'preuni', title: 'Pre. Uni.', targets: 0, width: '12%', className: 'text-end' },
+                    { data: 'subtotal', title: 'Subtotal', targets: 0, width: '12%', className: 'text-end' },
+                    { data: 'exenta', title: 'Exenta', targets: 0, width: '12%', className: 'text-end' },
+                    { data: 'iva5', title: 'IVA 5%', targets: 0, width: '12%', className: 'text-end' },
+                    { data: 'iva10', title: 'IVA 10%', targets: 0, width: '12%', className: 'text-end' },
+                    {
+                        data: null,
+                        title: 'Acción',
+                        render: function (data, type, row) {
+                            return `<button class="btn btn-sm btn-danger btn-eliminar-articulo" data-id="${row.idarticulo}"><i class="bi bi-trash"></i></button>`;
+                        }
+                    }
+                ]
+            });
+        }
+
+
+        function calcularSubtotal() {
+                const cantidad = parseFloat(document.getElementById("cantidad").value.replace(/\./g, "")) || 0;
+                const preuni = parseFloat(document.getElementById("preuni").value.replace(/\./g, "")) || 0;
+                const subtotal = cantidad * preuni;
+
+                // Formatear con separador de miles
+                const subtotalFormateado = subtotal.toLocaleString("es-PY");
+                document.getElementById("subtotal").value = subtotalFormateado;
+            }
+
+        /**
+         * Configura todos los eventos necesarios
+         */
+        function configurarEventos() {
+            // Evento para buscar proveedor por RUC
+            document.getElementById("cantidad").addEventListener("input", calcularSubtotal);
+            document.getElementById("preuni").addEventListener("input", calcularSubtotal);
+            document.getElementById("codbarra").addEventListener("input", function() {
+                
+                calcularSubtotal();
+            });
+            document.getElementById('btnBuscarRUCCI').addEventListener('click', buscarProveedorPorRUC);
+            document.getElementById('ruc').addEventListener('blur', function() {
+                const rucIngresado = this.value?.trim();
+
+                if (rucIngresado === undefined || rucIngresado === "") 
+                    return; // no hace nada si está vacío
+            
+                var proveedores = JSON.parse(localStorage.getItem("proveedores")) || [];
+                
+                var proveedor = proveedores.find(p => p.ruc === rucIngresado);
+
+                if (proveedor) {
+                    document.getElementById("idproveedor").value = proveedor.idproveedor;
+                    document.getElementById("proveedor").value = proveedor.nombre;
+                    document.getElementById("codbarra").focus();
+                } else {
+                    alertify.error("RUC no encontrado en la lista de proveedores");
+                    document.getElementById("idproveedor").value = "";
+                    document.getElementById("proveedor").value = "";
+                    document.getElementById("ruc").focus();
+                }
+            });
+
+            
+            
+            // Evento para buscar artículo por código de barra
+            document.getElementById('btnBuscarArticulo').addEventListener('click', buscarArticuloPorCodBarra);
+            document.getElementById('codbarra').addEventListener('blur', function() {
+                const codbarra = this.value?.trim();
+
+                if (codbarra === undefined || codbarra === "") 
+                    return; // no hace nada si está vacío
+            
+                var producto = articulosConNombres.find(p => p.codbarra === codbarra);
+
+                if (producto) {
+                    document.getElementById("idarticulo").value = producto.idarticulo;
+                    document.getElementById("descripcion").value = producto.descripcion + "-" + producto.marca + "/" + producto.clasificacion;
+                    document.getElementById("preuni").value = producto.preventa;
+                    
+                    // selecciona el <select> y le asigna el IVA del producto
+                    const selIva = document.getElementById("tipoIva");
+                    // suponemos que producto.iva viene con valores: "EXENTA", "IVA5" o "IVA10"
+                    if (producto.tiva && selIva.querySelector(`option[value="${producto.tiva}"]`)) {
+                        selIva.value = producto.tiva;
+                    } else {
+                        // valor por defecto si no coincide
+                        selIva.value = "0";
+                    }
+                    document.getElementById("cantidad").focus();
+                } else {
+                    alertify.error("CÓDIGO DE BARRA no encontrado en la lista de productos");
+                    document.getElementById("idarticulo").value = "";
+                    document.getElementById("descripcion").value = "";
+                    document.getElementById("preuni").value = "";
+                    const selIva = document.getElementById("tipoIva");
+                    selIva.value = "0";
+                    document.getElementById("codbarra").focus();
+                }
+            });
+
+            document.getElementById('codbarra').addEventListener('input', function() {
+            const codbarra = this.value?.trim();
+            if (!codbarra) {
+                document.getElementById("idarticulo").value = "";
+                document.getElementById("descripcion").value = "";
+                document.getElementById("preuni").value = "";
+                calcularSubtotal();
+                return;
+            }
+            var producto = articulosConNombres.find(p => p.codbarra === codbarra);
+            if (producto) {
+                document.getElementById("idarticulo").value = producto.idarticulo;
+                document.getElementById("descripcion").value = producto.descripcion + "-" + producto.marca + "/" + producto.clasificacion;
+                document.getElementById("preuni").value = producto.preventa;
+            } else {
+                document.getElementById("idarticulo").value = "";
+                document.getElementById("descripcion").value = "";
+                document.getElementById("preuni").value = "";
+            }
+            calcularSubtotal();
+        });
+            
+            // Evento para agregar artículo a la tabla
+            document.getElementById('btnAgregarArticulo').addEventListener('click', agregarArticuloATabla);
+            
+            // Evento para eliminar artículo de la tabla
+            document.getElementById('tablaArticulos').addEventListener('click', function(e) {
+                if (e.target.closest('.btn-eliminar-articulo')) {
+                    const idArticulo = e.target.closest('.btn-eliminar-articulo').dataset.id;
+                    eliminarArticuloDeTabla(parseInt(idArticulo));
+                }
+            });
+            
+
+
+            // Evento para guardar la compra
+            //document.getElementById('formCompras').addEventListener('submit', guardarCompra);
+            
+            // Evento para cancelar compra
+            // document.getElementById('formCompras').addEventListener('reset', limpiarFormulario);
+            
+            // Evento para teclas F2 y F3
+            document.addEventListener('keydown', function(e) {
+                // F2 para buscar proveedor
+                if (e.key === 'F2') {
+                    e.preventDefault();
+                    buscarProveedorPorRUC();
+                }
+                
+                // F4 para buscar artículo
+                if (e.key === 'F4') {
+                    e.preventDefault();
+                    buscarArticuloPorCodBarra();
+                }
+            });
+
+            const inputFactura = document.getElementById('numfactura');
+            // Validar NumFactura
+            inputFactura.addEventListener('input', () => {
+                // Solo números
+                let v = inputFactura.value.replace(/\D/g, '');
+                // Insertar guiones automáticamente
+                if (v.length > 3 && v.length <= 6) {
+                    v = v.slice(0,3) + '-' + v.slice(3);
+                } else if (v.length > 6) {
+                    v = v.slice(0,3) + '-' + v.slice(3,6) + '-' + v.slice(6,13);
+                }
+                inputFactura.value = v;
+            });
+            // Validar al salir del campo
+            // inputFactura.addEventListener('blur', () => {
+            //     const patron = /^\d{3}-\d{3}-\d{7}$/;
+            //     if (!patron.test(inputFactura.value.trim())) {
+            //         inputFactura.setCustomValidity('Número de Factura inválido: ej. 100-100-1234567');
+            //     } else {
+            //         inputFactura.setCustomValidity('');
+            //     }
+            //     inputFactura.reportValidity();
+            // });
+            
+            // Evento para validar campos numéricos
+            // const camposNumericos = ['numfactura', 'codbarra'];
+            // camposNumericos.forEach(campo => {
+            //     document.getElementById(campo).addEventListener('input', function() {
+            //         validarCampoNumerico(this);
+            //     });
+            // });
+        }
+
+
+        /**
+         * Valida que un campo solo contenga números
+         * @param {HTMLElement} elemento = Campo a validar
+         */
+        // function validarCampoNumerico(elemento) {
+            
+        //     // Caso especial para RUC (permite un guión)
+        //     if (elemento.id === 'ruc') {
+        //         let v = elemento.value;      
+                
+        //         // 1) eliminar todo lo que no sea dígito o guion
+        //         v = v.replace(/[^0-9-]/g, '');
+
+        //         // 2) permitir un solo guion
+        //         const partes = v.split('-');
+        //         if (partes.length > 2) {
+        //             // juntamos todo tras el primer guion
+        //             v = partes[0] + '-' + partes.slice(1).join('');
+        //         }
+
+        //         // 3) tras el guion, máximo un dígito
+        //         const [antes, despues] = v.split('-');
+        //         if (typeof despues !== 'undefined' && despues.length > 1) {
+        //             v = antes + '-' + despues.charAt(0);
+        //         }
+
+        //         console.log(v)
+
+        //         elemento.value = v;
+        //     } else {
+        //         // Para los demás campos, solo permitir números
+        //         elemento.value = elemento.value.replace(/[^0-9]/g, '');
+        //     }
+            
+        //     // Validar longitud máxima si está definida
+        //     if (elemento.maxLength && elemento.value.length > elemento.maxLength) {
+        //         elemento.value = elemento.value.slice(0, elemento.maxLength);
+        //     }
+        // }
+
+
+        /**
+         * Función para mostrar todos los proveedores disponibles
+         */
+        function buscarProveedorPorRUC() {
+            // Si ya existe una instancia de DataTable, destruirla
+            if ($.fn.DataTable.isDataTable("#tabla_proveedores")) {
+                $('#tabla_proveedores').DataTable().clear().destroy();
+            }
+
+            // Inicializar el DataTable
+            tabla = new DataTable("#tabla_proveedores", {
+                data: proveedores,
+                language: spanish,
+                searching: true,    
+                lengthChange: false, 
+                pageLength: 5,
+                columns: [
+                    { data: 'idproveedor', title: 'Id Proveedor', visible: false },
+                    { data: 'ruc', title: 'RUC' },
+                    { data: 'nombre', title: 'Razón Social' },
+                    { data: 'direccion', title: 'Dirección' },
+                    { data: 'celular', title: 'Teléfono' },
+                    { data: 'ciudad', title: 'Ciudad' }
+                ],
+
+            });
+
+            const modalProveedor = new bootstrap.Modal('#modalProveedores');
+            modalProveedor.show();
+
+            $("#tabla_proveedores tbody").on("click", "tr", function() {
+                const datos = tabla.row(this).data();
+                $("#ruc").val(datos.ruc);
+                $("#modalProveedores").modal("hide");
+                document.getElementById("ruc").focus();
+                document.getElementById("codbarra").focus();
+            });
+        }
+
+         /**
+         * Función para mostrar todos los productos disponibles
+         */
+         function buscarArticuloPorCodBarra() {
+
+            // Si ya existe una instancia de DataTable, destruirla
+            if ($.fn.DataTable.isDataTable("#tabla_articulos")) {
+                $('#tabla_articulos').DataTable().clear().destroy();
+            }
+
+            // Inicializar el DataTable
+            tabla = new DataTable("#tabla_articulos", {
+                data: articulosConNombres,
+                language: spanish,
+                searching: true,    
+                lengthChange: false, 
+                pageLength: 5,
+                columns: [
+                    { data: 'idarticulo', title: 'Id Artículo', visible: false },
+                    { data: 'codbarra', title: 'Código de Barras' },
+                    { data: 'descripcion', title: 'Descripción' },
+                    { data: 'marca', title: 'Marca' },
+                    { data: 'clasificacion', title: 'Clasificación' },
+                    {
+                        data: 'tiva',
+                        title: 'I.V.A.',
+                        render: function(data, type, row) {
+                            if (data === 0) return "EXENTA";
+                            if (data === 5) return "5%";
+                            if (data === 10) return "10%";
+                            return data; // en caso de valor inesperado
+                        }
+                    },
+                    {
+                        data: 'stockactual',
+                        title: 'Stock Actual',
+                        render: function(data, type, row) {
+                        let num = parseFloat(data).toFixed(2); // 2 decimales
+                        return num.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                        }
+                    },
+                    {
+                        data: 'preventa',
+                        title: 'Precio Venta',
+                        render: function(data, type, row) {
+                        return parseInt(data).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                        }
+                    }
+                ],
+
+            });
+
+            const modalArticulo = new bootstrap.Modal('#modalArticulos');
+            modalArticulo.show();
+
+            $("#tabla_articulos tbody").on("click", "tr", function() {
+                const datos = tabla.row(this).data();
+                $("#codbarra").val(datos.codbarra);
+                modalArticulo.hide();
+                document.getElementById("codbarra").focus();
+                document.getElementById("cantidad").focus();
+                calcularSubtotal();
+            });
+
+
+            
+
+            // Escuchar cambios en cantidad y precio unitario
+            document.getElementById("cantidad").addEventListener("input", calcularSubtotal);
+            document.getElementById("preuni").addEventListener("input", calcularSubtotal);
+        }
+
+        /**
+         * Agrega un artículo a la tabla de detalle
+         */
+        let articulosCompra = [];//array para guardar temporalmente los artículos de la compra
+
+        function agregarArticuloATabla() {
+            // Validar campos obligatorios
+            const idArticulo = document.getElementById('idarticulo').value;
+            const codBarra = document.getElementById('codbarra').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const precioUnitario = Number(document.getElementById('preuni').value.split('.').join('').replace(/\./g, ""));
+            const subtotal = Number(document.getElementById('subtotal').value.split('.').join('').replace(/\./g, ""));
+            const tipoIva = document.getElementById('tipoIva').value;
+            
+            // Validar entradas
+            if (!idArticulo || !codBarra || !descripcion || isNaN(cantidad) || cantidad <= 0 || isNaN(precioUnitario) || precioUnitario <= 0) {
+                alertify.error('Comp e correctamente todos los campos del artículo');
+                return;
+            }
+            
+            // Verificar si el artículo ya existe en la tabla
+            const articuloExistente = articulosCompra.findIndex(a => a.idarticulo == idArticulo);
+            
+            // Calcular importes según tipo de IVA
+            
+            const importeTotal = cantidad * precioUnitario;
+            let exenta = 0;
+            let iva5 = 0;
+            let iva10 = 0;
+            
+            
+            switch (tipoIva) {
+                case '0':
+                    exenta = importeTotal*0;
+                    break;
+                case '5':
+                    iva5 = importeTotal*0.05;
+                    break;
+                case '10':
+                    iva10 = importeTotal*0.10;
+                    break;
+            }
+            
+            // Si el artículo ya existe, actualizar cantidad e importes
+            if (articuloExistente >= 0) {
+                articulosCompra[articuloExistente].cantidad += cantidad;
+                articulosCompra[articuloExistente].exenta += exenta;
+                articulosCompra[articuloExistente].iva5 += iva5;
+                articulosCompra[articuloExistente].iva10 += iva10;
+                articulosCompra[articuloExistente].subtotal += subtotal;
+            } else {
+                // Crear nuevo registro en el detalle
+                const nuevoArticulo = {
+                    idarticulo: parseInt(idArticulo),
+                    codbarra: codBarra,
+                    descripcion: descripcion,
+                    cantidad: cantidad,
+                    preuni: precioUnitario,
+                    subtotal: subtotal,
+                    exenta: exenta,
+                    iva5: iva5,
+                    iva10: iva10,
+                    tipoiva: tipoIva
+                };
+                
+                articulosCompra.push(nuevoArticulo);
+                tablaDetalle.push(nuevoArticulo);
+            }
+            
+            // Actualizar tabla y totales
+            actualizarTabla();
+            calcularTotales();
+            limpiarCamposArticulo();
+        }
+
+        /**
+         * Actualiza la tabla de detalle
+         */
+        function actualizarTabla() {
+            tablaDetalle.clear().rows.add(articulosCompra).draw();
+        }
+
+        /**
+         * Calcula los totales de la compra
+         */
+        function calcularTotales() {
+            totalExenta = 0;
+            total5 = 0;
+            total10 = 0;
+            SUBTOTAL = 0;
+           // const subtotal = Number(document.getElementById('subtotal').value.split('.').join('').replace(/\./g, ""));
+            
+            // Sumar totales por tipo de IVA
+            articulosCompra.forEach(item => {
+                totalExenta += item.exenta;
+                total5 += item.iva5;
+                total10 += item.iva10;
+            });
+
+            articulosCompra.forEach(item => {
+                SUBTOTAL += item.subtotal;
+            });
+            
+            // Calcular liquidaciones de IVA
+            liq5 = total5 / 21; // IVA 5% = total / 21
+            liq10 = total10 / 11; // IVA 10% = total / 11
+            
+            // Calcular total general
+            totalGeneral = totalExenta + total5 + total10;
+            totalAPagar = SUBTOTAL + totalGeneral;
+            
+            // Mostrar totales con formato de moneda
+            document.getElementById('totExenta').value = formatearDecimal(totalExenta);
+            document.getElementById('tot5').value = formatearDecimal(total5);
+            document.getElementById('tot10').value = formatearDecimal(total10);
+            document.getElementById('liq5').value = formatearDecimal(liq5);
+            document.getElementById('liq10').value = formatearDecimal(liq10);
+            document.getElementById('total').value = formatearDecimal(totalGeneral);
+            document.getElementById('totalApagar').value = formatearDecimal(totalAPagar);
+        }
+
+        /**
+         * Formatea un número como moneda
+         * @param {number} valor - Valor a formatear
+         * @returns {string} - Valor formateado
+         */
+        function formatearDecimal(valor) {
+            return new Intl.NumberFormat('es-PY', { 
+                style: 'currency', 
+                currency: 'PYG',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(valor);
+        }
+
+        /**
+         * Limpia los campos del formulario de artículos
+         */
+        function limpiarCamposArticulo() {
+            document.getElementById('idarticulo').value = '';
+            document.getElementById('codbarra').value = '';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('cantidad').value = '1';
+            document.getElementById('preuni').value = '';
+            document.getElementById('tipoIva').value = '0';
+            document.getElementById('codbarra').focus();
+        }
+
+        /**
+         * Elimina un artículo de la tabla de detalle
+         * @param {number} idArticulo - ID del artículo a eliminar
+         */
+        function eliminarArticuloDeTabla(idArticulo) {
+            articulosCompra = articulosCompra.filter(a => a.idarticulo !== idArticulo);
+            detalleCompra = detalleCompra.filter(a => a.idarticulo !== idArticulo);
+            actualizarTabla();
+            calcularTotales();
+        }
+
+        document.getElementById("btnVerTablas").addEventListener("click", function(e) {
+            e.preventDefault();
+            consultaCompras();
+            // Abre el modal manualmente
+            const modal = new bootstrap.Modal(document.getElementById('modalVerTablas'));
+            modal.show();
+        });
+
+        /**
+         * Guarda la compra en localStorage
+         * @param {Event} e - Evento del formulario
+         */
+        function guardarCompra() {
+            // e.preventDefault();
+        // Obtener valores primero
+        const idproveedor = document.getElementById('idproveedor').value;
+        const fechaInput = document.getElementById('fecha').value;
+        const numFactura = document.getElementById('numfactura').value.trim();
+
+        // Validar que haya un proveedor seleccionado
+        if (!idproveedor) {
+        alertify.error('Debe seleccionar un proveedor');
+        return;
+        }
+
+        // Validar fecha
+        const hoy = new Date().toISOString().split('T')[0];
+        if (!fechaInput || fechaInput === "0001-01-01" || fechaInput < "2015-12-01") {
+        alertify.error('Debe ingresar una fecha válida');
+        return;
+        }
+        if (fechaInput > hoy) {
+        alertify.error('La fecha no puede ser mayor a hoy');
+        return;
+        }
+
+        // Validar que haya artículos en el detalle
+        if (articulosCompra.length == 0) {
+        alertify.error('Debe agregar al menos un artículo a la compra');
+        return;
+        }
+
+        // Validar número de factura
+        if (!numFactura) {
+        alertify.error('Ingrese el número de factura');
+        return;
+        }
+
+        // Validar formato de factura
+        const patron = /^\d{3}-\d{3}-\d{7}$/;
+        if (!patron.test(numFactura)) {
+        alertify.error('Número de Factura inválido: ej. 100-100-1234567');
+        return;
+        }
+
+        // Obtener compras guardadas
+        let comprasActualizadas = JSON.parse(localStorage.getItem("compras")) || [];
+
+        // Normalizar función para comparar facturas
+        const normalizarFactura = f => (f || '').replace(/\s+/g, '').toUpperCase();
+
+        // Validar si ya existe una factura con el mismo número, proveedor y fecha
+        const facturaExistente = comprasActualizadas.some(c =>
+        normalizarFactura(c.numfactura) === normalizarFactura(numFactura) &&
+        String(c.idproveedor) === String(idproveedor) &&
+        c.fecha === fechaInput
+        );
+        if (facturaExistente) {
+        alertify.error('Ya existe una factura con ese número, proveedor y fecha');
+        return;
+        }
+
+            // Justo antes de la validación de factura existente:
+            // let comprasActualizadas = JSON.parse(localStorage.getItem("compras")) || [];
+            // const facturaExist = comprasActualizadas.some(c =>
+            //     (c.numfactura || '').trim() === numFactura &&
+            //     String(c.idproveedor) === String(idProveedor)
+            // );
+            // if (facturaExist) {
+            //     alertify.error('Ya existe una factura con ese número para este proveedor');
+            //     return;
+            // }
+            // // Verificar si la factura ya existe
+            // const normalizarFactura = f => (f || '').replace(/\s+/g, '').toUpperCase();
+            // const facturaExistente = compras.some(c => c.numfactura === numFactura && String(c.idproveedor) === String(idProveedor));
+            // if (facturaExistente) {
+            //     alertify.error('Ya existe una factura con ese número para este proveedor');
+            //     return;
+            // }
+            
+            // Normalizar RUC para guardar
+            const rucNormalizado = document.getElementById('ruc').value.trim();
+            
+            // Crear objeto de compra
+            const nuevaCompra = {
+                idcompra: obtenerSiguienteId(compras),
+                numfactura: numFactura,
+                fecha: document.getElementById('fecha').value,
+                condicion: document.getElementById('condicion').value,
+                idproveedor: parseInt(idproveedor),
+                proveedor: document.getElementById('proveedor').value,
+                ruc: document.getElementById('ruc').value, 
+                totexenta: totalExenta,
+                tot5: total5,
+                tot10: total10,
+                liq5: liq5,
+                liq10: liq10,
+                total: totalAPagar,
+                totcompra: totalAPagar, 
+                totiva: totalGeneral,
+                // detalle: [...detalleCompra], // Clonar el array para evitar referencias
+                anulado: 'NO',
+                pagado: 'NO'// le agrege :(
+            };
+            
+            // Guardar compra en localStorage
+            
+            // Actualizar stock de artículos (opcional)
+            actualizarStockArticulos();
+            
+            // alert(articulosCompra.length)
+
+            // Guardar detalles
+            let comprasdetalle = JSON.parse(localStorage.getItem("comprasdetalle")) || [];
+            let lastIdDetalle = comprasdetalle.length > 0 ? Math.max(...comprasdetalle.map(d => d.idcompradet || 0)) : 0;
+
+            
+            
+
+            if (articulosCompra.length == 0) {
+                alertify.error('No se han agregado artículos a la compra');
+                return;
+            } else{
+                let compras = JSON.parse(localStorage.getItem("compras")) || [];  
+                compras.push(nuevaCompra);
+                localStorage.setItem('compras', JSON.stringify(compras));
+                articulosCompra.forEach((art, idx) => {
+                    comprasdetalle.push({
+                        idcompradet: lastIdDetalle + idx + 1,
+                        idcompra: nuevaCompra.idcompra,
+                        ...art
+                    });
+                });
+                localStorage.setItem("comprasdetalle", JSON.stringify(comprasdetalle)); // <-- Guarda después de agregar
+                alertify.success('Compra registrada correctamente');
+                limpiarFormulario();
+                consultaCompras();
+            }
+        }
+
+        /**
+         * Actualiza el stock de los artículos
+         */
+        function actualizarStockArticulos() {
+            // Esta función es opcional y dependería de cómo manejes el stock en tu aplicación
+            // Ejemplo básico:
+            articulosCompra.forEach(item => {
+                const index = articulos.findIndex(a => a.idarticulo === item.idarticulo);
+                if (index !== -1) {
+                    // Si el artículo existe, aumentar su stock
+                    articulos[index].stockactual = (articulos[index].stockactual || 0) + item.cantidad;
+                    articulos[index].preciocosto = item.preuni; // Actualizar precio de costo
+                }
+            });
+            
+            // Guardar artículos actualizados
+            localStorage.setItem('articulos', JSON.stringify(articulos));
+        }
+
+        /**
+         * Limpia completamente el formulario
+         */
+        function limpiarFormulario() {
+            // Limpiar campos de proveedor
+            document.getElementById('idproveedor').value = '';
+            document.getElementById('ruc').value = '';
+            document.getElementById('proveedor').value = '';
+            
+            // Limpiar campos de artículo
+            limpiarCamposArticulo();
+            
+            // Limpiar tabla de detalle
+            articulosCompra = [];
+            actualizarTabla();
+            
+            // Restablecer totales
+            totalExenta = 0;
+            total5 = 0;
+            total10 = 0;
+            liq5 = 0;
+            liq10 = 0;
+            totalGeneral = 0;
+            calcularTotales();
+            
+            // Establecer fecha actual
+            const fechaActual = new Date().toISOString().split('T')[0];
+            document.getElementById('fecha').value = fechaActual;
+            
+            // Restablecer número de factura y condición
+            document.getElementById('numfactura').value = '';
+            document.getElementById('condicion').value = 'CONTADO';
+            
+            // Establecer foco en número de factura
+            document.getElementById('numfactura').focus();
+        }
+
+        /**
+         * Obtiene el siguiente ID para una nueva compra
+         * @param {Array} compras - Array de compras existentes
+         * @returns {number} - Siguiente ID disponible
+         */
+        function obtenerSiguienteId(compras) {
+            if (compras.length === 0) {
+                return 1;
+            } else {
+                const maxId = Math.max(...compras.map(c => c.idcompra || 0));
+                return maxId + 1;
+            }
+        }
+
+        function formatear(num) {
+            n = new Intl.NumberFormat("de-DE").format(num);
+            return n;
+        }
+
+        function quitarSeparador(num) {
+        // Convertir el número a cadena y verificar si contiene un punto
+        if (num.toString().includes('.')) {
+            // Si tiene un punto, quitar todos los puntos
+            var n = num.toString().replace(/\./g, "");
+            return n;
+        } else {
+            // Si no tiene un punto, devolver el número sin cambios
+            return num.toString();
+        }
+        }
+
+
+        function formatearDecimal(valor) {
+            return new Intl.NumberFormat('es-ES', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+            }).format(valor);
+        }
+
+        
+
+    //  ==================  CONSULTA DE COMPRAS  ========================  \\
+
+        function consultaCompras() {
+            compras = JSON.parse(localStorage.getItem("compras")) || []; // <-- ¡Actualiza aquí!
+            let filas = ``;
+            compras.forEach((c,index) => {
+                // Busca el proveedor por idproveedor
+                const prov = proveedores.find(p => p.idproveedor == c.idproveedor) || {};
+                filas += `
+                    <tr>
+                        <td>${c.idcompra}</td>
+                        <td>${ c.proveedor ?? prov.nombre ?? ""}</td>
+                        <td>${c.ruc ?? prov.ruc ?? ""}</td>
+                        <td>${c.FechaCompra ?? c.fecha ?? ""}</td>
+                        <td>${c.condicion ?? ""}</td>
+                        <td>${c.numfactura ?? ""}</td>
+                        <td>${c.totiva ?? 0}</td>
+                        <td>${c.totcompra ?? c.total ?? 0}</td>
+                        <td>${c.pagado ?? 'NO'}</td> 
+        
+                        <td>
+                            <button type="button" class="btn btn-warning detalle" data-id="${c.idcompra}">Detalle</button>
+                            <button type="button" class="btn btn-danger anular" data-id="${c.idcompra}" ${c.anulado === "SI" ? "disabled" : ""}>Anular</button>
+                        </td>
+                    </tr>
+                `;
+                //         filas += `
+                //         <tr>
+                //             <td>${c.idcompra}</td>
+                //             <td>${c.proveedor}</td>
+                //             <td>${c.ruc}</td>
+                //             <td>${c.fecha}</td>
+                //             <td>${c.condicion}</td>
+                //             <td>${c.numfactura}</td>
+                //             <td>${formatearMoneda(c.total ?? c.totcompra ?? 0)}</td>
+                //             <td>
+                //                 <button type="button" class="btn btn-warning detalle" data-id="${c.idcompra}"><i class="bi bi-list"></i></button>
+                //                 <button type="button" class="btn btn-danger anular" data-id="${c.idcompra}" ${c.anulado === "SI" ? "disabled" : ""}>Anular</button>
+                //             </td>
+                //         </tr>
+                // `;
+                // filas += 
+                // `
+                //     <td>${c.idcompra}</td>
+                //     <td>${c.proveedor}</td>
+                //     <td>${c.ruc}</td>
+                //     <td>${c.fecha}</td>
+                //     <td>${c.condicion}</td>
+                //     <td>${c.numfactura}</td>
+                //     <td>${c.numfactura}</td>
+                    
+                //     <td><button type="button" id= "${index}" class="btn btn-warning detalle"><i class="bi bi-list"></i> </button></td>
+                // `;
+            });
+            document.getElementById("cabecera_compras").innerHTML = filas;
+            // Limpia el detalle al abrir el modal
+            document.getElementById("detalle_compras").innerHTML = "";
+
+            document.getElementById("cabecera_compras").addEventListener("click", function(e) {
+            if (e.target.closest(".anular")) {
+                const id = e.target.closest(".anular").dataset.id;
+                alertify.confirm(
+                    "Anular compra",
+                    "¿Está seguro que desea anular esta compra?",
+                    function() {
+                        anularCompra(id);
+                    },
+                    function() {
+                        alertify.error("Anulación cancelada");
+                    }
+                ).set('labels', { ok: 'Sí', cancel: 'No' });
+            }
+            // ...otros eventos...
+            });
+
+        }
+
+        // Evento delegado para ver detalle de la compra
+        document.getElementById("cabecera_compras").addEventListener("click", function(e) {
+            if (e.target.closest(".detalle")) {
+                const id = parseInt(e.target.closest(".detalle").dataset.id);
+                mostrarDetalleCompra(id);
+            }
+            if (e.target.closest(".anular")) {
+                const id = parseInt(e.target.closest(".anular").dataset.id);
+                anularCompra(id);
+            }
+        });
+
+        // Mostrar el detalle de la compra seleccionada
+        function mostrarDetalleCompra(idcompra) {
+            const comprasdetalle = JSON.parse(localStorage.getItem("comprasdetalle")) || [];
+            const articulos = JSON.parse(localStorage.getItem("articulos")) || [];
+            const detalle = comprasdetalle.filter(d => d.idcompra == idcompra);
+            let filas = "";
+            detalle.forEach(d => {
+                const art = articulos.find(a => a.idarticulo == d.idarticulo) || {};
+                filas += `
+                    <tr>
+                        <td>${d.idarticulo}</td>
+                        <td>${art.codbarra ?? ""}</td>
+                        <td>${art.descripcion ?? ""}</td>
+                        <td>${d.cantidad}</td>
+                        <td>${formatearDecimal(d.preuni)}</td>
+                        <td>${formatearDecimal(d.subtotal)}</td>
+                        <td>${formatearDecimal(d.exenta ?? 0)}</td>
+                        <td>${formatearDecimal(d.iva5 ?? 0)}</td>
+                        <td>${formatearDecimal(d.iva10 ?? 0)}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById("detalle_compras").innerHTML = filas;
+        }
+
+        // Formatear Decimal
+
+        function formatearDecimal(valor) {
+            return new Intl.NumberFormat('es-PY', { 
+                style: 'currency', 
+                currency: 'PYG',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(valor);
+        }
+
+        
+
+        function anularCompra(idcompra) {
+        let compras = JSON.parse(localStorage.getItem("compras")) || [];
+        const idx = compras.findIndex(c => c.idcompra == idcompra);
+        if (idx !== -1) {
+            compras[idx].anulado = 'SI';
+            localStorage.setItem("compras", JSON.stringify(compras));
+            alertify.success("Compra anulada correctamente");
+            consultaCompras(); // Vuelve a cargar la tabla para reflejar el cambio
+        } else {
+            alertify.error("No se encontró la compra");
+        }
+        }
+
+        
+        /**
+         * Función para cerrar sesión
+         */
+        function cerrarSesion() {
+            sessionStorage.removeItem("sesionActiva");
+            localStorage.removeItem("nomUsuario");
+            localStorage.removeItem("rolUsuario");
+            window.location.href = "index.html";
+        }
+
+        
+
+
+    //**********************************************************
+    // se guarda en una variable el rol de usuario que se encuentra en el localstorage
+    var cargo = localStorage.getItem("rolUsuario");
+
+    //Si el cargo es Admin, entonces remueve la clase d-none de bootstrap y muestra todo
+    if(cargo==="Administrador"){
+      document.getElementById("Usuarios").classList.remove('d-none');
+      document.getElementById("Proveedores").classList.remove('d-none');
+      document.getElementById("Compras").classList.remove('d-none');
+      document.getElementById("Bancos").classList.remove('d-none');
+      document.getElementById("Pproveedores").classList.remove('d-none');
+      document.getElementById("Ventas").classList.remove('d-none');
+      document.getElementById("Clientes").classList.remove('d-none');
+      document.getElementById("Marcas").classList.remove('d-none');
+      document.getElementById("Familias").classList.remove('d-none');
+      document.getElementById("Articulos").classList.remove('d-none');
+    }
+    if(cargo==="Codificador"){
+      document.getElementById("Usuarios").classList.remove('d-none');
+      document.getElementById("Proveedores").classList.remove('d-none');
+      document.getElementById("Compras").classList.remove('d-none');
+      document.getElementById("Pproveedores").classList.remove('d-none');
+      document.getElementById("Marcas").classList.remove('d-none');
+      document.getElementById("Familias").classList.remove('d-none');
+      document.getElementById("Articulos").classList.remove('d-none');
+    }
+    if(cargo==="Cajero"){
+      document.getElementById("Clientes").classList.remove('d-none');
+      document.getElementById("Ventas").classList.remove('d-none');
+    }
+
+    </script>
+    
+</body>
